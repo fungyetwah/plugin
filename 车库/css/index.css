@@ -1,0 +1,99 @@
+@charset "utf-8";
+/* CSS Document */
+html,body{margin:0;padding:0;font:14px/1.5em simsun;overflow:hidden;ont-family:微软雅黑;}
+#canvas{position:absolute;left:0px;top:0px;z-index:9;border:2px dashed #ccc;padding:10px;background:#fff;}
+.transparent{filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity:0.5;opacity:0.5;}
+.box{width:200px;height:100px;cursor:move;position:absolute;top:30px;left:30px;z-index:99;transform: rotate(0deg);}
+.box .bg{width:100%;height:100%;background-color:orange;}
+.box .coor{width:10px;height:10px;overflow:hidden;cursor:se-resize;position:absolute;right:0;bottom:0;background-color:red;}
+.box .content{position:absolute;left:50%;top:50%;z-index:99;text-align:center;font:bold 14px/1.5em simsun;}
+#debug{position:absolute;right:10px;top:10px;z-index:88;border:1px solid #ccc;width:100px;height:100px;background:#fff;}
+#toolbar{position:absolute;left:10px;top:10px;z-index:88;}
+    
+.clear{clear: both;}
+.f-btns{z-index: 100;position: absolute;margin-top: 10px;}
+.f-r-left{cursor: pointer;float: left;display: block;padding:3px 5px;background: rgba(0,0,0,0.3);}
+.f-r-right{cursor: pointer;float: right;display: block;padding:3px 5px;background: rgba(0,0,0,0.3);}
+.f-tanchu1{position: absolute;top: 50%;display: none;left: 50%;z-index: 999; background: #fff;width:880px;margin-left: -440px;border-radius: 4px;border: 1px solid #e2e2e2;}
+.f-tanchu1-title{height: 50px;line-height: 50px;font-size: 16px;padding: 0px;margin: 0px; padding-left: 20px;border-bottom: 1px solid #e2e2e2;}
+.f-tanchu1-title img{float: right;display: block;margin-top: 10px;margin-right: 10px;cursor: pointer;transition-duration: 0.35s;transition-property: all;transition-timing-function: ease;}
+.f-tanchu1-title img:hover{transform:scale(1.3)}
+.f-tanchu1-nr{padding: 30px 60px;}
+.f-tc1-select{height: 30px;line-height: 30px;color: #666;width: 160px;}
+.f-tc-btn{border-radius: 4px;width: 80px;color: #fff;height: 30px;line-height: 30px;text-align: center;background:#2E8DEC;display: inline-block;text-decoration-line: none;margin-left: 10px;transition-duration: 0.55s;transition-property: all;transition-timing-function: ease;}
+.f-tc-btn:hover{opacity: 0.85;}
+.f-tc-left{width: 257px;float: left;margin-right: 10px;}
+.f-tc-right{height: 130px;;float: left;}
+.f-preView{display: block;margin-top: 30px;max-width: 257px;}
+.f-mt100{margin-top: 100px;}
+.clear{clear: both;}
+.f-tc1-input{height: 27px;line-height: 27px;padding: 0px; border: 1px solid #ccc;border-radius: 4px;width: 210px;}
+.f-tc-p{margin:15px 0;width: 380px;}
+.f-tc-p img{position: relative;top: 3px; cursor: pointer;}
+.f-tc1-real{display: none}
+.f-tool{margin-top: 10px;}
+.f-tool select{width: 120px;height: 30px;line-height: 30px;}
+.f-tanchu2{position: absolute;display: none;top: 50%;left: 50%;z-index: 999; background: #fff;width:700px;margin-left: -350px;border-radius: 4px;border: 1px solid #e2e2e2;}
+.f-tanchu2-title{height: 50px;line-height: 50px;font-size: 16px;padding: 0px;margin: 0px; padding-left: 20px;border-bottom: 1px solid #e2e2e2;}
+.f-tanchu2-title img{float: right;display: block;margin-top: 10px;margin-right: 10px;cursor: pointer;transition-duration: 0.35s;transition-property: all;transition-timing-function: ease;}
+.f-tanchu2-title img:hover{transform:scale(1.3)}
+.f-tc2-nr{padding: 30px;}
+.f-tc2-tiao{margin-bottom: 20px;line-height: 32px;}
+.f-tc2-p1{display: inline-block;width: 85px;margin:0px;}
+.f-tc2-text{height: 27px;line-height: 27px;border-radius: 4px;width: 200px;border:1px solid #ccc;}
+.f-mr20{margin-right: 20px;}
+input[type="text"]{text-indent: 10px;}
+.left{float: left;}
+.f-mt120{margin-top: 120px;}
+.f-tc2-real{display: none}
+.f-mr30{margin-right: 30px;}
+.f-tc2-tiao select{margin-right: 15px;width: 95px;height: 30px;line-height: 30px;}
+.f-tc2-submit{border-radius: 4px;width: 100px;color: #fff;height: 30px;text-align: center;background:#2E8DEC;display: inline-block;text-decoration-line: none;margin-left: 10px;transition-duration: 0.55s;transition-property: all;transition-timing-function: ease;border: none;cursor: pointer;margin-left: 85px;}
+.f-tc1-submit{border-radius: 4px;width: 100px;color: #fff;height: 30px;text-align: center;background:#2E8DEC;display: inline-block;text-decoration-line: none;margin-left: 10px;transition-duration: 0.55s;transition-property: all;transition-timing-function: ease;border: none;cursor: pointer;margin-left: 85px;}
+.f-tc1-submit:hover{opacity: 0.85;}
+.f-tc2-submit:hover{opacity: 0.85;}
+.f-isHide{display: inline-block;}
+.f-tc1-one{width: 380px;float: left;}
+
+.f-tanchu3{position: absolute;display: none;top: 50%;left: 50%;z-index: 999; background: #fff;width:700px;margin-left: -350px;border-radius: 4px;border: 1px solid #e2e2e2;}
+.f-tanchu3-title{height: 50px;line-height: 50px;font-size: 16px;padding: 0px;margin: 0px; padding-left: 20px;border-bottom: 1px solid #e2e2e2;}
+.f-tanchu3-title img{float: right;display: block;margin-top: 10px;margin-right: 10px;cursor: pointer;transition-duration: 0.35s;transition-property: all;transition-timing-function: ease;}
+.f-tanchu3-title img:hover{transform:scale(1.3)}
+.f-tc3-nr{padding: 30px;}
+.f-tc3-tiao{margin-bottom: 20px;line-height: 32px;}
+.f-tc3-p1{display: inline-block;width: 85px;margin:0px;}
+.f-tc3-text{height: 27px;line-height: 27px;border-radius: 4px;width: 200px;border:1px solid #ccc;}
+.f-tc3-real{display: none}
+.f-tc3-tiao select{margin-right: 15px;width: 95px;height: 30px;line-height: 30px;}
+.f-tc3-submit{border-radius: 4px;width: 100px;color: #fff;height: 30px;text-align: center;background:#2E8DEC;display: inline-block;text-decoration-line: none;margin-left: 10px;transition-duration: 0.55s;transition-property: all;transition-timing-function: ease;border: none;cursor: pointer;margin-left: 85px;}
+.f-tc3-submit:hover{opacity: 0.85;}
+.f-isHide3{display: inline-block;}
+    /*详情*/
+.f-xq{background: #fff;z-index: 101;position: absolute;width: 320px; border: 1px solid #e2e2e2;border-radius: 4px;display: none;}
+.f-xq-title{margin: 0px;font-size: 16px;height: 50px;line-height: 50px;padding-left: 20px;}
+.f-xq p{margin: 0;}
+.f-xq-msg{float: left;width: 45%;padding-left: 5%;line-height: 30px;font-size: 14px;}
+.f-xq-msg span{display: inline-block;width: 55px;}
+.f-xq-p1{padding-left: 5%;font-size: 14px;line-height: 30px;}
+.f-xq-p1 strong{font-size: 24px;color: red;margin-left: 12px;}
+.f-xq-img{display: block;margin-top: 30px;max-height: 320px;}
+    /* 绑定购买范围*/
+.f-tanchu4{display: none;position: absolute;top: 50%;left: 50%;z-index: 999; background: #fff;width:480px;margin-left: -240px;border-radius: 4px;border: 1px solid #e2e2e2;}
+.f-tanchu4-title{height: 50px;line-height: 50px;font-size: 16px;padding: 0px;margin: 0px; padding-left: 20px;border-bottom: 1px solid #e2e2e2;}
+.f-tanchu4-title img{float: right;display: block;margin-top: 10px;margin-right: 10px;cursor: pointer;transition-duration: 0.35s;transition-property: all;transition-timing-function: ease;}
+.f-tanchu4-title img:hover{transform:scale(1.3)}
+.f-tanchu4-nr{padding: 30px;}
+.f-tanchu4 p{margin: 0;}
+.f-tanchu4-nr>p>span{display:block;width: 55px;float: left;}
+.f-tc4-right{width: 370px; float: right;}
+.f-tanchu4-nr .f-tc4-right a{display: inline-block;padding: 4px 20px;margin-right: 10px;border: 1px solid #e2e2e2;border-radius: 4px;color: #666;text-decoration-line: none;margin-bottom: 20px;}
+.f-tanchu4-nr .f-tc4-right .f-tc4-on{border-color: #2E8DEC;background:#2E8DEC;color: #fff;}
+.f-tanchu4-nr .f-tc4-right a:hover{border-color: #2E8DEC;background:#2E8DEC;color: #fff;}
+.f-tc4-btnAll{margin-bottom: 20px;padding-left: 55px;font-size: 13px;}
+.f-tc4-btnAll span{display: inline-block;margin-right: 10px;}
+.f-tc4-btnAll input[type="radio"]{position:relative;top: 2px;}
+.f-tc4-one{padding-left: 55px;margin-bottom: 20px;}
+.f-tc4-one span{display: inline-block;margin-right: 25px;margin-bottom: 10px;}
+.f-tc4-right textarea{width: 330px;border: 1px solid #ccc;min-height: 80px;}
+.f-tc4-bc{border-radius: 4px;width: 100px;color: #fff;height: 30px;text-align: center;background:#2E8DEC;display: inline-block;text-decoration-line: none;margin-left: 52px;margin-top: 30px; transition-duration: 0.55s;transition-property: all;transition-timing-function: ease;border: none;cursor: pointer;}
+.f-tc4-bc:hover{opacity: 0.85;}

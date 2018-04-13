@@ -1,0 +1,838 @@
+<!doctype html>
+<html>
+<title>jQuery实现平面图区域标记</title>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="js/jquery.min.js" ></script>
+<script type="text/javascript" src="js/layer/layer.js"></script>
+<script type="text/javascript" src="js/context/context.js"></script>
+<script type="text/javascript" src="js/drag.js" ></script>
+<link rel="stylesheet" type="text/css" href="js/context/context.standalone.css">
+<link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<!--区域弹窗-->
+<div class="f-tanchu2">
+    <p class="f-tanchu2-title">添加车库车位柴火间<img src="img/chacha.png" width="26"></p>
+    <div class="f-tc2-nr">
+        <div class="f-tc2-tiao"><p class="f-tc2-p1">当前位置：</p><span class="f-sp1">车库</span>——<span class="f-sp2">地下一层</span></div>
+        <div class="f-tc2-tiao">
+            <p class="f-tc2-p1">类型编号：</p>
+            <input class="f-tc2-text f-mr20" type="text" placeholder="请输入类型名称">
+            <p class="f-tc2-p1">面积：</p>
+            <input class="f-tc2-text" type="text" placeholder="请输入面积">
+        </div>
+        <div class="f-tc2-tiao">
+            <p class="f-tc2-p1">层高：</p>
+            <input class="f-tc2-text f-mr20" type="text" placeholder="请输入层高 例如15㎡(3m*5m)">
+            <p class="f-tc2-p1">类型价格：</p>
+            <input class="f-tc2-text" type="text" placeholder="请输入类型价格">
+        </div>
+        <div class="f-tc2-tiao">
+            <p class="f-tc2-p1 left">类型图片：</p>
+            <img src="img/noimg.jpg" height="150" class="left">
+            <a class="f-tc-btn f-tc2-fake f-mt120" href="javascript:void(0);">上传</a>
+            <input type="file" class="f-tc2-real">
+            <div class="clear"></div>
+        </div>
+        <div class="f-tc2-tiao">
+            <p class="f-tc2-p1"> 是否绑定：</p>
+            <input class="f-isShow" type="radio" name="isBind" sta="1"><span class="f-mr30">绑定单个</span>
+            <input type="radio" name="isBind"><span class="f-mr30">自由购买</span>
+            <span class="f-isHide">
+                <p class="f-tc2-p1"> 绑定房间：</p>
+                <select>
+                    <option>4#A座</option>
+                    <option>4#B座</option>
+                </select>
+                <select>
+                    <option>101</option>
+                    <option>102</option>
+                </select>
+            </span>
+        </div>
+        <input type="submit" value="添加" class="f-tc2-submit">
+    </div>
+</div>
+<!--区域弹窗 end-->
+
+
+
+<!--编辑弹窗-->
+<div class="f-tanchu3">
+    <p class="f-tanchu3-title">编辑车库车位柴火间<img src="img/chacha.png" width="26"></p>
+    <div class="f-tc3-nr">
+        <div class="f-tc3-tiao"><p class="f-tc3-p1">当前位置：</p><span class="f-sp1">车库</span>——<span class="f-sp2">地下一层</span></div>
+        <div class="f-tc3-tiao">
+            <p class="f-tc3-p1">类型编号：</p>
+            <input class="f-tc3-text f-mr20 f-bh1" type="text" placeholder="请输入类型名称">
+            <p class="f-tc3-p1">面积：</p>
+            <input class="f-tc3-text f-mj1" type="text" placeholder="请输入面积">
+        </div>
+        <div class="f-tc3-tiao">
+            <p class="f-tc3-p1">层高：</p>
+            <input class="f-tc3-text f-mr20 f-cg1" type="text" placeholder="请输入层高 例如15㎡(3m*5m)">
+            <p class="f-tc3-p1">类型价格：</p>
+            <input class="f-tc3-text f-jg1" type="text" placeholder="请输入类型价格">
+        </div>
+        <div class="f-tc3-tiao">
+            <p class="f-tc3-p1 left">类型图片：</p>
+            <img src="img/noimg.jpg" height="150" class="left f-tp1">
+            <a class="f-tc-btn f-tc3-fake f-mt120" href="javascript:void(0);">上传</a>
+            <input type="file" class="f-tc3-real">
+            <div class="clear"></div>
+        </div>
+        <div class="f-tc3-tiao">
+            <p class="f-tc3-p1"> 是否绑定：</p>
+            <input class="f-isShow3" type="radio" name="isBind3" sta="1"><span class="f-mr30">绑定单个</span>
+            <input type="radio" name="isBind3"><span class="f-mr30">自由购买</span>
+            <span class="f-isHide3">
+                <p class="f-tc3-p1"> 绑定房间：</p>
+                <select>
+                    <option>4#A座</option>
+                    <option>4#B座</option>
+                </select>
+                <select>
+                    <option>101</option>
+                    <option>102</option>
+                </select>
+            </span>
+        </div>
+        <input type="submit" value="添加" class="f-tc3-submit">
+    </div>
+</div>
+<!--编辑弹窗 end-->
+
+<!--类型弹窗-->
+<div class="f-tanchu1">
+    <p class="f-tanchu1-title">维护车库车位柴火间<img src="img/chacha.png" width="26"></p>
+    <div class="f-tanchu1-nr">
+        <div>
+            <select class="f-tc1-select">
+                <option>车库</option>
+                <option>车位</option>
+                <option>柴火间</option>
+            </select>
+            <a class="f-tc-btn f-tc1-add" href="javascript:void(0);">添加</a>
+        </div>
+        <div class="f-tc1-one">
+            <div>
+                <div class="f-tc-left" id="imgPreview1">
+                    <img class="f-preView" src="img/u45.jpg" height="100" width="260">
+                </div>
+                <div class="f-tc-right">
+                    <a class="f-tc-btn f-mt100 f-tc1-fake" href="javascript:void(0);">上传</a>
+                    <input type="file" class="f-tc1-real">
+                </div>
+                <div class="clear"></div>
+            </div>
+            <p class="f-tc-p">
+                名称：<input type="text" class="f-tc1-input" placeholder="例如：地下一层">
+                <img src="img/u59.png" width="20">
+                <img src="img/u61.png" width="20">
+            </p>
+        </div>
+        <div class="clear"></div>
+        <input type="submit" class="f-tc1-submit" value="确认">
+    </div>
+</div>
+<!--类型弹窗 end-->
+
+<!--绑定购买范围-->
+<div class="f-tanchu4">
+    <p class="f-tanchu4-title">绑定范围<img src="img/chacha.png" width="26"></p>
+    <div class="f-tanchu4-nr">
+        <div>
+            <span>楼栋：</span>
+            <div class="f-tc4-right">
+                <a class="f-tc4-on" href="javascript:void(0);">4#401</a>
+                <a href="javascript:void(0);">4#402</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="f-tc4-btnAll">
+            <span>
+                <input class="f-tc4-qx" type="radio" name="f-tc4-all">全选
+            </span>
+            <span>
+                <input class="f-tc4-fx" type="radio" name="f-tc4-all">反选
+            </span>
+        </div>
+        <!--一个-->
+        <div class="f-tc4-one">
+            <span><input class="f-tc4-cb" type="checkbox">A01</span>
+            <span><input class="f-tc4-cb" type="checkbox">A02</span>
+            <span><input class="f-tc4-cb" type="checkbox">A03</span>
+            <span><input class="f-tc4-cb" type="checkbox">A04</span>
+            <span><input class="f-tc4-cb" type="checkbox">A05</span>
+            <span><input class="f-tc4-cb" type="checkbox">A06</span>
+            <span><input class="f-tc4-cb" type="checkbox">A07</span>
+            <span><input class="f-tc4-cb" type="checkbox">A08</span>
+        </div>
+        <!--一个 end-->
+        
+        <!--一个-->
+        <div class="f-tc4-one" style="display:none;">
+            <span><input class="f-tc4-cb" type="checkbox">B01</span>
+            <span><input class="f-tc4-cb" type="checkbox">B02</span>
+            <span><input class="f-tc4-cb" type="checkbox">B03</span>
+            <span><input class="f-tc4-cb" type="checkbox">B04</span>
+            <span><input class="f-tc4-cb" type="checkbox">B05</span>
+            <span><input class="f-tc4-cb" type="checkbox">B06</span>
+            <span><input class="f-tc4-cb" type="checkbox">B07</span>
+            <span><input class="f-tc4-cb" type="checkbox">B08</span>
+        </div>
+        <!--一个 end-->
+        
+        
+        <div>
+            <span>范围：</span>
+            <div class="f-tc4-right">
+                <textarea></textarea>
+            </div>
+            <div class="clear"></div>
+        </div>
+        
+        <input type="submit" class="f-tc4-bc" value="保存">
+        
+    </div>
+</div>
+<!--绑定购买范围 end-->
+<!--更改区域尺寸-->
+<div class="f-tanchu5">
+    <div class="f-tanchu5-content">
+        <p class="f-tanchu5-title">请输入区域尺寸（宽,高），最小值：30<img class="f-guanbi5" src="img/chacha.png" width="20"></p>
+        <input class="f-setSize" value="77,70" type="text">
+        <div class="f-tanchu5-btns">
+            <a href="javascript:void(0);" class="f-tanchu5-sure">确定</a>
+            <a href="javascript:void(0);" class="f-tanchu5-close f-guanbi5">取消</a>
+        </div>
+    </div>
+</div>
+<!--更改区域尺寸 end-->
+<style>
+    .f-tanchu5{display: none;top: 0px;position: fixed;background: rgba(0,0,0,0.3);width: 100%;height: 100%;z-index: 9999;text-align: center;}
+    .f-tanchu5-content{background: #fff;border-radius: 4px;border: 1px solid #e2e2e2;box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.3);left: 50%;top: 50%;width: 350px;margin-left: -175px;position: absolute;padding: 0px;margin-top: -100px;}
+    .f-tanchu5-title{position: relative;background-color: #f8f8f8;border-bottom: 1px solid #eee;border-radius: 2px 2px 0 0;color: #333;font-size: 14px;height: 42px;line-height: 42px;overflow: hidden;padding: 0 80px 0 20px; text-overflow: ellipsis; white-space: nowrap;padding: 0px;margin: 0;}    
+    .f-tanchu5-title  img{position: absolute;display: inline-block;right: 15px;top: 10px; cursor: pointer;background-color: #f8f8f8;}
+    .f-setSize{font-size: 14px;border: 1px solid #ccc;box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1) inset;color: #333;display: block;height: 30px;line-height: 30px;padding: 0 5px;width: 220px;word-break: break-all;margin:20px auto;}
+    .f-tanchu5-btns{text-align: right;padding: 0 10px 12px;pointer-events: auto;}
+    .f-tanchu5-sure{ border-color: #4898d5;background-color: #2e8ded;color: #fff; display: inline-block;height: 30px;line-height: 30px;margin: 0 6px;padding: 0 15px;border-radius: 2px;font-weight: 400;cursor: pointer;text-decoration: none;}
+    .f-tanchu5-close{height: 28px;line-height: 28px;margin: 0 6px;padding: 0 15px
+        ;border: 1px solid #dedede;background-color: #f1f1f1;color: #333;border-radius: 2px;font-weight: 400;cursor: pointer;display: inline-block;text-decoration: none;}
+    .f-tanchu5-sure:hover{opacity: 0.9;}
+    .f-tanchu5-close:hover{opacity: 0.9;}
+    .f-btns{min-width: 50px;}
+</style>
+<body class="list">
+<!-- <pre id="debug"></pre> -->
+<div id="toolbar">
+    <input type="button" value="添加类型" class="btn" id="btn_type" />
+	<input type="button" value="添加区域" class="btn" id="btn_add" />
+	<input type="button" value="锁定区域" class="btn" id="btn_lock" />
+	<input type="button" value="保存数据" class="btn" id="btn_save" />
+	<div class="f-tool">
+	    <select class="f-select1">
+	        <option>请选择</option>
+	        <option>车库</option>
+	        <option>车位</option>
+	        <option>柴火间</option>
+	    </select>
+	    <select class="f-select2">
+	        <option>请选择</option>
+	        <option>地下一层</option>
+	        <option>地下二层</option>
+	        <option>地下三层</option>
+	    </select>
+	</div>
+</div>
+<div id="canvas">
+	<img src="demo_picture.png" />
+</div>
+</body>
+</html>
+<script>
+var temp = true;
+
+//更新按钮位置
+function UpdateBtnsPosition(i){
+    var width = $(".box").eq(i).width();
+    var height = $(".box").eq(i).height();
+    var top = parseInt($(".box").eq(i).css("top"));
+    var left = parseInt($(".box").eq(i).css("left"));
+
+    $(".f-btns").eq(i).width(width);
+    $(".f-btns").eq(i).css("top",top+height);
+    $(".f-btns").eq(i).css("left",left);
+
+    if(top-$(".f-xq").eq(i).height()>0){
+        $(".f-xq").eq(i).css("top",top-$(".f-xq").eq(i).height()+"px")
+    }else{
+        $(".f-xq").eq(i).css("top",0+"px");
+    }
+    if(left-320>0){
+        $(".f-xq").eq(i).css("left",left-320+"px")
+    }else{
+        $(".f-xq").eq(i).css("left",left+width+"px");
+    }
+}
+    
+//更新box信息
+function UpdateBox(i,data){
+    if(data.width){//宽度
+        $(".box").eq(i).width(data.width);
+    }
+    if(data.height){//高度
+        $(".box").eq(i).height(data.width);
+    }
+    if(data.top){//top值
+        $(".box").eq(i).css("top",data.top+"px");
+    }
+    if(data.left){//left值
+        $(".box").eq(i).css("left",data.left+"px");
+    }
+    if(data.degree){
+        $(".box").eq(i).css("transform","rotate("+data.degree+"deg)");
+    }
+    if(data.imgSrc){//详情框图片
+        $(".f-xq").eq(i).find(".f-xq-img").attr("src",data.imgSrc);
+    }
+    if(data.bh){//编号
+        $(".f-xq").eq(i).find(".f-bh2").html(data.bh);
+        $(".box").eq(i).find(".content").html(data.bh);
+    }
+    if(data.mj){//面积
+        $(".f-xq").eq(i).find(".f-mj2").html(data.mj);
+    }
+    if(data.jg){//价格
+        $(".f-xq").eq(i).find(".f-jg2").html(data.jg);
+    }
+    if(data.cg){//层高
+        $(".f-xq").eq(i).find(".f-cg2").html(data.cg);
+    }
+    if(data.wz){//位置
+        $(".f-xq").eq(i).find(".f-wz2").html(data.wz);
+    }
+    if(data.fw){//绑定范围
+        $(".f-xq").eq(i).find(".f-fw2").html(data.fw);
+    }
+
+    //更新按钮位置
+    UpdateBtnsPosition(i);
+}
+$(function(){
+    var which;  
+	//初始化计数器
+	var num = 0;
+	//区块锁定标识
+	var lock = false;
+	//加载layer拓展
+	layer.config({
+	    extend: 'extend/layer.ext.js'
+	});
+	//右键菜单参数
+	context.init({
+	    fadeSpeed: 100,
+	    filter: function ($obj){},
+	    above: 'auto',
+	    preventDoubleContext: true,
+	    compress: false
+	});
+	//调试输出方法
+	function debug(msg){
+		$("#debug").text(msg);
+	}
+	function rotateLeft(obj){
+
+		time = setTimeout(function(){
+			var deg=eval('get'+obj.css('transform'));//构造getmatrix函数,返回上次旋转度数
+		    var step=-1;//每次旋转多少度
+		    obj.css({'transform':'rotate('+(deg+step)%360+'deg)'});
+			rotateLeft(obj);
+		},3)
+	}
+	function rotateRight(obj){
+		time = setTimeout(function(){
+			var deg=eval('get'+obj.css('transform'));//构造getmatrix函数,返回上次旋转度数
+		    var step=1;//每次旋转多少度
+		    obj.css({'transform':'rotate('+(deg+step)%360+'deg)'});
+			rotateRight(obj);
+		},3)
+	}
+    
+    //box详情
+    function xqk(){
+        var preX,preY;
+        $(".box").last().bind("mousedown",function(e){
+                //记录点击坐标
+                preX = $(this).offset().left;
+                preY = $(this).offset().top;
+            })
+        $(".box").last().bind("mouseup",function(e){
+            if(e.button==0){//判断是否左键点击
+                //是否为拖动
+                var index = $(".box").index(this);
+                if(preX-$(this).offset().left<1){
+                    if(preY-$(this).offset().top<1){
+                        //详情框位置
+                        if($(".f-btns").eq(index).offset().top-$(".f-xq").eq(index).height()>0){
+                            $(".f-xq").eq(index).css("top",$(".f-btns").eq(index).offset().top-$(".f-xq").eq(index).height());
+                        }else{
+                            $(".f-xq").eq(index).css("top",0);
+                        }
+                         if($(this).offset().left-350>0){
+                            $(".f-xq").eq(index).css("left",$(".f-btns").eq(index).offset().left-350);
+                        }else{
+                            $(".f-xq").eq(index).css("left",$(this).offset().left+$(this).width()+30);
+                        }
+
+                        //详情框显示隐藏
+                        if($(".f-xq").eq(index).attr("sta")==1){
+                            $(".f-xq").eq(index).attr("sta",2);
+                            $(".f-xq").eq(index).show();
+                            $(".f-xq").eq(index).siblings(".f-xq").hide();
+                            $(".f-xq").eq(index).siblings(".f-xq").attr("sta",1);
+                        }else{
+                            $(".f-xq").eq(index).attr("sta",1);
+                            $(".f-xq").hide();
+                        }
+                    }
+                }      
+            }
+        })
+        
+    }
+
+    
+     //方块绑定方法 obj
+    function action(obj){
+        //左旋转
+        var index = $(".box").index(obj);
+        $(".f-r-left").eq(index).bind("mousedown",function(){
+        	rotateLeft(obj);
+        })  
+        $(".f-r-left").eq(index).bind("mouseup",function(){
+            clearTimeout(time);
+        })
+        $(".f-r-right").eq(index).bind("mousedown",function(){
+        	rotateRight(obj)
+        })
+        $(".f-r-right").eq(index).bind("mouseup",function(){
+            clearTimeout(time);
+        })
+//      $(".f-r-left").eq(index).bind("click",function(){
+//          var deg=eval('get'+obj.css('transform'));//构造getmatrix函数,返回上次旋转度数
+//          var step=-1;//每次旋转多少度
+//          obj.css({'transform':'rotate('+(deg+step)%360+'deg)'});
+//      })
+        //右旋转
+//      $(".f-r-right").eq(index).bind("click",function(){
+//          var deg=eval('get'+obj.css('transform'));//构造getmatrix函数,返回上次旋转度数
+//          var step=1;//每次旋转多少度
+//          obj.css({'transform':'rotate('+(deg+step)%360+'deg)'});
+//      })
+    }
+    
+    
+     //旋转、拉伸盒子matrix(n,n,n,n,n,n)
+    function transform(rel,width,height,top,left){
+        var index = $(".box").index($(".box[rel='"+rel+"']")) ; //确定当时对象的index(删除后改变,rel != index)
+        $("#canvas").append("<div class='f-btns'><img class='f-r-left' src='img/left.png' width='15'><img class='f-r-right' src='img/right.png' width='15'><div class='clear'></div></div>");
+        action($(".box").eq(index));
+         $("#canvas").append('<div class="f-xq" sta="1"><p class="f-xq-title">车位信息：</p><p class="f-xq-msg"><span>位置：</span><label class="f-wz2">地下一层</label></p><p class="f-xq-msg"><span>面积：</span><label class="f-mj2">15㎡(3m*5m)</label></p><p class="f-xq-msg"><span>编号：</span><label class="f-bh2">A10</label></p><p class="f-xq-msg"><span>层高：</span><label class="f-cg2">2.8m</label></p><p class="f-xq-p1"><span>绑定范围：</span><label class="f-fw2">A#4（A01、A02、A03）</label></p><p class="f-xq-p1"><span>价格：</span><strong class="f-jg2">5万</strong></p><div class="clear"></div><img src="img/u45.jpg" width="100%" class="f-xq-img f-tp2"></div>');
+        xqk();
+        UpdateBtnsPosition(index);
+    }
+    
+    //定位左边详情框
+
+    
+    //获取旋转角度
+    function getmatrix(a,b,c,d,e,f){
+        var aa=Math.round(180*Math.asin(a)/ Math.PI);
+        var bb=Math.round(180*Math.acos(b)/ Math.PI);
+        var cc=Math.round(180*Math.asin(c)/ Math.PI);
+        var dd=Math.round(180*Math.acos(d)/ Math.PI);
+        var deg=0;
+        if(aa==bb||-aa==bb){
+            deg=dd;
+        }else if(-aa+bb==180){
+            deg=180+cc;
+        }else if(aa+bb==180){
+            deg=360-cc||360-dd;
+        }
+        return deg>=360?0:deg;
+        //return (aa+','+bb+','+cc+','+dd);
+    }
+    
+	function createBox(data){
+		var dataId = data.id || '';
+		var value = data.text || '';
+		var color = data.color || '';
+        var degree = data.degree || 0;
+		var height = data.height || 0;
+		var width = data.width || 0;
+		var pageX = data.pageX || 0;
+		var pageY = data.pageY || 0;
+		
+		//更新计数器并记录当前计数
+		var curNum = num++;
+		//创建区域块
+		var pos = $("#canvas").position();
+		var box = $('<div class="box" rel="'+curNum+'" dataId="'+dataId+'"><pre class="content">'+value+'</pre><div class="bg transparent" style="background-color:'+color+'"></div><div class="coor transparent"></div></div>').css({
+			width : width,
+			height : height,
+			top : pageY > 0 ? pageY : (pos.top > 0 ? 0 : pos.top * -1 + 100),
+			left : pageX > 0 ? pageX : (pos.left > 0 ? 0 : pos.left * -1 + 30),
+		}).appendTo("#canvas");
+        //初始化旋转度数
+        box.css("transform","rotate("+degree+"deg)");
+        
+        //计算按钮位置、绑定旋转功能、详情框
+		transform(curNum,width,height,pageY > 0 ? pageY : (pos.top > 0 ? 0 : pos.top * -1 + 100),pageX > 0 ? pageX : (pos.left > 0 ? 0 : pos.left * -1 + 30));
+		//计算文本位置
+		box.find('.content').css({
+			marginLeft : box.find('.content').width()/2*-1,
+			marginTop : box.find('.content').height()/2*-1
+		});
+		//创建右键菜单
+		context.attach('.box[rel='+curNum+']', [
+			{header: '操作'},
+			{text: '编辑区域信息', action: function(e){
+			    	e.preventDefault();
+			    	$(".f-tanchu3").fadeIn()
+                    $(".f-tanchu3").css("margin-top",-$(".f-tanchu3").height()/2);//上下居中
+                    
+			    }
+			},
+			{text: '更改区域尺寸', action: function(e){
+					e.preventDefault();
+					$(".f-tanchu5").fadeIn();
+				}
+			},
+            {text: '绑定购买范围', action: function(e){
+			    	e.preventDefault();
+                    //在此查数据放入弹窗
+                    $(".f-tanchu4").fadeIn();
+                    $(".f-tanchu4").css("margin-top",-$(".f-tanchu4").height()/2);
+                    
+			    }
+			},
+			{text: '删除区域', action: function(e){
+			    	e.preventDefault();
+                    var index = $(".box").index($('.box[rel='+curNum+']'));
+                    $(".f-btns").eq(index).remove();
+                    $(".f-xq").eq(index).remove();
+					$('.box[rel='+curNum+']').remove();
+
+			    }
+			},
+			{divider: true},
+			{header: '更改颜色'},
+			{text: '<font color="orange">橙色</font>', action: function(e){
+			    	e.preventDefault();
+			    	$('.box[rel='+curNum+'] .bg').css('background-color', 'orange');
+			    }
+			},
+			{text: '<font color="red">红色</font>', action: function(e){
+			    	e.preventDefault();
+			    	$('.box[rel='+curNum+'] .bg').css('background-color', 'red');
+			    }
+			},
+			{text: '<font color="blue">蓝色</font>', action: function(e){
+			    	e.preventDefault();
+			    	$('.box[rel='+curNum+'] .bg').css('background-color', 'blue');
+			    }
+			},
+			{text: '<font color="green">绿色</font>', action: function(e){
+			    	e.preventDefault();
+			    	$('.box[rel='+curNum+'] .bg').css('background-color', 'green');
+			    }
+			},
+			{text: '<font color="purple">紫色</font>', action: function(e){
+			    	e.preventDefault();
+			    	$('.box[rel='+curNum+'] .bg').css('background-color', 'purple');
+			    }
+			},
+			{text: '<font color="yellow">黄色</font>', action: function(e){
+			    	e.preventDefault();
+			    	$('.box[rel='+curNum+'] .bg').css('background-color', 'yellow');
+			    }
+			}
+		]);
+	}
+	//添加区域
+//	$("#btn_add").click(function(){
+//		//弹出区域说明输入框
+//		layer.prompt({
+//			title: '请输入区域说明',
+//			formType: 2 //0:input,1:password,2:textarea
+//		}, function(value, index, elem){
+//			layer.close(index);
+//			createBox({
+//				text : value,
+//				width : 200,
+//				height : 100
+//			});
+//		});
+//	});
+    
+	//锁定区域
+	$('#btn_lock').click(function(){
+		if(lock){
+			$(this).val("锁定区域");
+			lock = false;
+			$('.box .coor').show();
+            $(".f-btns").show();
+		}else{
+			$(this).val("解锁区域");
+			lock = true;
+			$('.box .coor').hide();
+             $(".f-btns").hide();
+		}
+	});
+	//获取所有区块
+	$('#btn_save').click(function(){
+		var data = [];
+		$('.box').each(function(){
+			var box = {};
+			box['id'] = $(this).attr('dataId');
+            box['degree'] = eval('get'+$(this).css('transform'));
+			box['text'] = $(this).find('.content').text();
+			box['color'] = $(this).find('.bg').css('background-color');
+			box['height'] = $(this).height();
+			box['width'] = $(this).width();
+			box['pageX'] = $(this).position().left;
+			box['pageY'] = $(this).position().top;
+			console.dir(box);
+			data.push(box);
+		});
+	});
+	//创建拖拽方法
+	$("#canvas").mousedown(function(e){
+		var canvas = $(this);
+	    e.preventDefault();
+	    var pos = $(this).position();
+	    this.posix = {'x': e.pageX - pos.left, 'y': e.pageY - pos.top};
+	    $.extend(document, {'move': true, 'move_target': this, 'call_down' : function(e, posix){
+	    	canvas.css({
+	    		'cursor': 'move',
+	    		'top': e.pageY - posix.y,
+				'left': e.pageX - posix.x
+			});
+        
+	    }, 'call_up' : function(){
+	    	canvas.css('cursor', 'default');
+	    }});
+	}).on('mousedown', '.box', function(e) {
+        var xq = $(".f-xq").eq($(".box").index(this));//详情框对象
+        if(xq.is(':hidden')){  
+        }else{
+            xq.hide();
+        }
+		if(lock) return;
+	    var pos = $(this).position();
+	    this.posix = {'x': e.pageX - pos.left, 'y': e.pageY - pos.top};
+	    $.extend(document, {'move': true, 'move_target': this});
+	    e.stopPropagation();
+	   }).on('mousedown', '.box .coor', function(e) {
+		var $box = $(this).parent();
+        var boxWidth = $(this).parent().width();
+        var btns = $(".f-btns").eq($(".box").index($(this).parent()));//按钮对象
+        var btnTop = parseInt(btns.css("top"));
+        var boxTop = parseInt($box.css("top"));
+	    var posix = {
+	            'w': $box.width(), 
+	            'h': $box.height(), 
+	            'x': e.pageX, 
+	            'y': e.pageY
+	        };
+	    $.extend(document, {'move': true, 'call_down': function(e) {
+            //跟随变大变小
+            btns.css({
+	            'width': Math.max(30, e.pageX - posix.x + boxWidth),
+	            'top': Math.max(boxTop+30, e.pageY - posix.y +btnTop )
+	        });
+	    	$box.css({
+	            'width': Math.max(30, e.pageX - posix.x + posix.w),
+	            'height': Math.max(30, e.pageY - posix.y + posix.h)
+	        });
+	    }});
+	    e.stopPropagation();
+	});
+	//测试加载
+	var loadData = [{id : 1001,text : "C16\n16.5",color : "rgb(255, 0, 0)",height : 70,width : 77,pageX : 427,pageY : 364, degree : 30},
+	                {id : 1002,text : "C17\n16.18",color : "rgb(255, 255, 0)",height : 70,width : 77,pageX : 709,pageY : 364,degree : 180},
+	                {id : 1003,text : "C18\n16.08",color : "rgb(128, 0, 128)",height : 70,width : 77,pageX : 790,pageY : 364,degree : 90},
+	                {id : 1004,text : "C19\n16.08",color : "rgb(0, 128, 0)",height : 70,width : 77,pageX : 870,pageY : 364,degree : 270},
+	                {id : 1005,text : "C20\n16.5",color : "rgb(0, 0, 255)",height : 70,width : 77,pageX : 627,pageY : 439,degree : 360},
+	                {id : 1006,text : "C21\n16.18",color : "rgb(255, 165, 0)",height : 70,width : 77,pageX : 709,pageY : 439,degree : 0},
+	                {id : 1007,text : "C22\n16.08",color : "rgb(255, 165, 0)",height : 70,width : 77,pageX : 870,pageY : 439,degree : 60},
+	                {id : 1008,text : "C23\n16.08",color : "rgb(255, 165, 0)",height : 70,width : 77,pageX : 789,pageY : 439,degree : 45}];
+	$.each(loadData, function(i, row){
+		createBox(row);
+	});
+    //弹窗1确认添加
+    $(".f-tc1-submit").click(function(){
+        $(".f-tanchu1").fadeOut();
+        createBox({
+            text : "sad",
+            width : 200,
+            height : 100,
+        });
+    });
+});
+</script>
+<script>
+$(function(){
+    //弹窗1显示
+    $("#btn_type").click(function(){
+        $(".f-tanchu1").fadeIn();
+        $(".f-tanchu1").css("margin-top",-$(".f-tanchu1").height()/2);//上下居中
+    });
+    //弹窗1关闭
+    $(".f-tanchu1-title img").click(function(){
+        $(".f-tanchu1").fadeOut();
+    })
+    //弹窗1添加内容
+    $(".f-tc1-add").click(function(){
+        if($(".f-tc1-one").length<6){
+            $(".f-tc1-one").last().after('<div class="f-tc1-one"><div><div class="f-tc-left"id="imgPreview1"><img class="f-preView"src="img/u45.jpg"height="100"width="260"></div><div class="f-tc-right"><a class="f-tc-btn f-mt100 f-tc1-fake"href="javascript:void(0);">上传</a><input type="file"class="f-tc1-real"></div><div class="clear"></div></div><p class="f-tc-p">名称：<input type="text"class="f-tc1-input"placeholder="例如：地下一层"><img src="img/u59.png"width="20"><img src="img/u61.png"width="20"></p></div>');
+            $(".f-tanchu1").css("margin-top",-$(".f-tanchu1").height()/2);//上下居中
+        }
+    });
+    
+    //选择上传文件
+    $(".f-tc1-fake").click(function(){
+        $(this).parent().find(".f-tc1-real").click();//假样式调用真按钮
+    });
+    
+    //弹窗2显示
+    $("#btn_add").click(function(){
+        $(".f-sp1").html($(".f-select1").val())   //初始化内容
+        $(".f-sp2").html($(".f-select2").val())   //初始化内容
+        $(".f-tanchu2").fadeIn();
+        $(".f-tanchu2").css("margin-top",-$(".f-tanchu2").height()/2);//上下居中
+    });
+    
+    //弹窗2关闭
+    $(".f-tanchu2-title img").click(function(){
+        $(".f-tanchu2").fadeOut();
+    })
+    
+    //弹窗2选择上传文件
+    $(".f-tc2-fake").click(function(){
+        $(this).parent().find(".f-tc2-real").click();//假样式调用真按钮
+    });
+    
+    //弹窗2单选按钮
+    if($(".f-isShow").prop("checked")){
+            $(".f-isHide").fadeIn();
+        }else{
+            $(".f-isHide").fadeOut();
+        }
+    $(".f-tanchu2 input[type='radio']").click(function(){
+        if($(".f-isShow").prop("checked")){
+            $(".f-isHide").fadeIn();
+        }else{
+            $(".f-isHide").fadeOut();
+        }
+    });
+    
+    //弹窗3关闭
+    $(".f-tanchu3-title img").click(function(){
+        $(".f-tanchu3").fadeOut();
+    })
+    
+    //弹窗3选择上传文件
+    $(".f-tc3-fake").click(function(){
+        $(this).parent().find(".f-tc3-real").click();//假样式调用真按钮
+    });
+    
+    //弹窗3单选按钮
+    if($(".f-isShow3").prop("checked")){
+            $(".f-isHide3").fadeIn();
+        }else{
+            $(".f-isHide3").fadeOut();
+        }
+    $(".f-tanchu3 input[type='radio']").click(function(){
+        if($(".f-isShow3").prop("checked")){
+            $(".f-isHide3").fadeIn();
+        }else{
+            $(".f-isHide3").fadeOut();
+        }
+    });
+    
+    //弹窗4关闭
+     $(".f-tanchu4-title img").click(function(){
+        $(".f-tanchu4").fadeOut();
+    })
+    
+    //弹窗4内容切换
+    $(".f-tc4-right a").click(function(){
+        //选中样式
+        $(".f-tc4-on").removeClass("f-tc4-on");
+        $(this).addClass("f-tc4-on");
+        //显示对应内容
+        $(".f-tc4-one").hide();
+        $(".f-tc4-one").eq($(".f-tc4-right a").index(this)).fadeIn();
+    });
+    
+    //全选、反选
+    $(".f-tc4-qx").click(function(){
+        $(".f-tc4-one:visible .f-tc4-cb").prop("checked",true);
+    });
+    $(".f-tc4-fx").click(function(){
+        $(".f-tc4-one:visible .f-tc4-cb").prop("checked",false);
+    });
+    
+    //右键记录下标
+    $(".box").mousedown(function(e){
+        if(e.button==2){
+            which=$(".box").index(this);
+
+        }
+    })
+    //保存编辑信息
+    $(".f-tc3-submit").click(function(){
+        //
+        $(".f-xq").eq(which).find(".f-mj2").html(   $(".f-mj1").val()   );  //面积
+        $(".f-xq").eq(which).find(".f-bh2").html(   $(".f-bh1").val()   );  //编号
+        $(".f-xq").eq(which).find(".f-cg2").html(   $(".f-cg1").val()   );  //层高
+        $(".f-xq").eq(which).find(".f-jg2").html(   $(".f-jg1").val()   );  //价格
+        $(".f-xq").eq(which).find(".f-tp2").attr("src",  $(".f-tp1").attr("src")   );   //图片
+        
+        $(".f-tanchu3").fadeOut();  //隐藏弹框
+    })
+    
+    //关闭弹窗5
+    $(".f-guanbi5").click(function(){
+        $(".f-tanchu5").fadeOut();
+    });
+    //确定编辑
+    $(".f-tanchu5-sure").click(function(){
+        var value = $(".f-setSize").val();
+        //输入是否正确
+        var reg = /^[0-9]+,[0-9]+$/;
+        if(!reg.test(value)){
+            alert('输入格式不正确，例：100,200');
+            return;
+        }
+        var size = value.split(',');
+        if(size[0]>30){
+            $(".box").eq(which).width(size[0]);
+        }else{
+            $(".box").eq(which).width(30);
+        }
+        if(size[1]>30){
+            $(".box").eq(which).height(size[1]);
+        }else{
+            $(".box").eq(which).height(30);
+        }
+        
+        UpdateBtnsPosition(which)
+        $(".f-tanchu5").fadeOut();
+    });
+})
+</script>
+
+<div class="asd" style="position:fixed;top:300px;left:200px;z-index:999;">321321321321321</div>
