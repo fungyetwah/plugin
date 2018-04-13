@@ -1,0 +1,48 @@
+:focus{ outline:0; }
+/*css3动画*/
+/**{ -webkit-transition:all 0.5s ease-in-out; -moz-transition:all 0.5s ease-in-out; -ms-transition:all 0.5s ease-in-out; -o-transition:all 0.5s ease-in-out; transition:all 0.5s ease-in-out; }*/
+body { margin:0; /*font:12px/1.5 \5b8b\4f53,Arial,sans-serif; */ font-size: 12px; font-family: "微软雅黑"; color: #444; }
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,blockquote,p{ padding:0; margin:0; }
+input, label, select, option, textarea, button, fieldset, legend { font-family:Tahoma,sans-serif; }
+table,td,tr,th{ font-size:12px; }
+ol,ul { list-style:none; }
+li{ list-style-type:none; }
+img{ vertical-align:top; border:0; }
+h1,h2,h3,h4,h5,h6{ font-size:inherit; font-weight:normal; }
+address,cite,code,em,th,i{ font-weight:normal; font-style:normal; }
+.clear{ clear: both; overflow: hidden; height: 0; }
+.clearfix{ *zoom:1; }
+.clearfix:after{ display:block; overflow:hidden; clear:both; height:0; visibility:hidden; content:"."; }
+a { font-size: 12px; color:#444; text-decoration:none;/* -webkit-transition:all 0.3s ease-in-out; -moz-transition:all 0.3s ease-in-out; -ms-transition:all 0.3s ease-in-out; -o-transition:all 0.3s ease-in-out; transition:all 0.3s ease-in-out;*/ }
+a:visited { text-decoration:none; }
+a:hover { color:#ff4a00; }
+a:active { color:#ff4a00; }
+
+/*被选中的文本样式*/
+::-webkit-selection{ background:#000; color:#fff; text-shadow:none; }
+::-moz-selection{ background:#000; color:#fff; text-shadow:none; }
+::selection{ background:#000; color:#fff; text-shadow:none; }
+
+
+.cssSelect { white-space: nowrap; float: left; }
+.cssSelect *{ display: block; }
+.cssSelect a{ color: #666; outline-width: 0px; text-decoration: none; }
+.cssSelect .selectBox{ cursor: pointer; border:solid 1px #c8c8c8; float: left; }
+.cssSelect .selectLt{ cursor: pointer; float: left; text-align: left; }
+.cssSelect .selectRt{ cursor: pointer; background:url('../images/skin_icons.png')  -49px -160px no-repeat #f2f2f2; border-left: 1px solid #c8c8c8; float: left}
+.cssSelect .selectBox{}
+.cssSelect .selectLt{ overflow: hidden; height: 30px; line-height: 31px; padding: 0 10px; background: none transparent scroll repeat 0% 0%; color: #666; }
+.cssSelect .selectRt{ height: 30px; padding-bottom: 0px; padding-top: 0px; padding-left: 0px; padding-right: 28px}
+.cssSelect .sNormal{ background-position: 0px 0px}
+/*.cssSelect .sNormal .selectRt { background-position: 100% 0px}*/
+.cssSelect .sHover{ background-position: 0px -50px}
+.cssSelect .sHover .selectRt{ background: url('../images/skin_icons.png')  -49px -160px no-repeat #e6e6e6; }
+.cssSelect .sPressDown{ }
+.cssSelect .sPressDown .selectRt{ background: url('../images/skin_icons.png')  -49px -160px no-repeat #e6e6e6; }
+.cssSelect .optionsBox{ position: absolute; border: 1px solid #dbdbdb; padding: 2px; margin: 0px; background: #fff; z-index: 100;}
+.cssSelect .optionsInnerBox { }
+.cssSelect .optionBox { cursor: pointer; padding: 2px 30px 2px 18px; margin: 0px; height:25px; line-height: 25px; }
+.cssSelect .optionBox span { cursor: pointer; font-size:12px}
+.cssSelect .oNormal { }
+.cssSelect .oHover{ background: #FF824D; color: #fff; }
+.cssSelect .selected{ background: #ff4a00; color: #fff; }
