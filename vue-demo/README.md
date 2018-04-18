@@ -1,3 +1,17 @@
+主要为展示插件如何引入项目与使用，样式勿喷。！
+插件包含：
+vue-router（自带）
+vue-meta（管理title与meta标签）
+prerender-spa-plugin（页面预渲染，配合vue-meta完成seo需求）
+mint-ui（饿了么移动端UI库）
+less
+axios（展示一些配置）
+qs（处理axios跨域option请求的问题）
+http/index.js (自写插件 记录全局变量 用qs预处理axios请求)
+vuex (记录一些公有数据)
+
+
+
 # first
 
 > A Vue.js project
